@@ -44,12 +44,12 @@ export function ContactForm() {
 
     setStatus("submitting");
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error("Failed");
+      // Build mailto link as fallback for static export (no server API)
+      const subject = encodeURIComponent(form.subject || "Contact from Website");
+      const body = encodeURIComponent(
+        `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${form.company || "N/A"}\n\n${form.message}`
+      );
+      window.location.href = `mailto:info@wisdomera.com?subject=${subject}&body=${body}`;
       setStatus("success");
       setForm(initialData);
     } catch {
