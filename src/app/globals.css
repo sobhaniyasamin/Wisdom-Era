@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-cream text-text-dark font-sans overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply font-serif font-bold;
+  }
+}
+
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+  .animation-delay-500 {
+    animation-delay: 0.5s;
+  }
+  .animation-delay-700 {
+    animation-delay: 0.7s;
+  }
+  .animation-delay-900 {
+    animation-delay: 0.9s;
+  }
+  .animation-delay-1200 {
+    animation-delay: 1.2s;
+  }
+}
