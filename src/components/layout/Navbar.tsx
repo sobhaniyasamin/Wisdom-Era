@@ -22,7 +22,7 @@ export function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full z-[1000] flex items-center justify-between transition-all duration-400 ease-out-expo ${
+        className={`fixed top-0 left-0 w-full z-[1000] flex items-center justify-between transition-all duration-400 ease-out-expo bg-navy ${
           scrolled
             ? "bg-navy/95 backdrop-blur-[20px] py-3 px-6 md:px-12 shadow-[0_4px_30px_rgba(0,0,0,0.15)]"
             : "py-5 px-6 md:px-12"
