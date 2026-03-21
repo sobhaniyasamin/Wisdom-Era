@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -43,19 +44,14 @@ export default function PortfolioDetailPage({ params }: Props) {
             <ArrowLeft size={16} /> Back to Portfolio
           </Link>
           <div className="flex items-start gap-6 mb-8">
-            <div
-              className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${company.logoGradient} flex items-center justify-center font-serif text-3xl font-bold text-white flex-shrink-0`}
-            >
-              {company.logoLetter}
-            </div>
+            <img
+              src={company.logoSrc}
+              alt={`${company.name} logo`}
+              className="w-20 h-20 rounded-2xl flex-shrink-0 object-contain"
+            />
             <div>
               <h1 className="text-[clamp(2.5rem,4vw,3.5rem)] text-white leading-tight mb-2">
                 {company.name}
-                {company.nameAr && (
-                  <span className="font-sans text-lg text-white/50 font-normal ml-3">
-                    / {company.nameAr}
-                  </span>
-                )}
               </h1>
               <p className="text-teal text-lg font-medium">{company.tagline}</p>
             </div>
@@ -147,11 +143,11 @@ export default function PortfolioDetailPage({ params }: Props) {
                     className="group block bg-white rounded-2xl p-6 border border-navy/[0.06] no-underline transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(46,62,111,0.08)]"
                   >
                     <div className="flex items-center gap-3 mb-3">
-                      <div
-                        className={`w-10 h-10 rounded-xl bg-gradient-to-br ${c.logoGradient} flex items-center justify-center font-serif text-sm font-bold text-white`}
-                      >
-                        {c.logoLetter}
-                      </div>
+                      <img
+                        src={c.logoSrc}
+                        alt={`${c.name} logo`}
+                        className="w-10 h-10 rounded-xl object-contain"
+                      />
                       <h4 className="text-navy font-bold">{c.name}</h4>
                     </div>
                     <p className="text-text-muted text-sm leading-relaxed">{c.tagline}</p>
