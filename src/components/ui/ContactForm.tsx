@@ -44,12 +44,20 @@ export function ContactForm() {
 
     setStatus("submitting");
     try {
-      // Build mailto link as fallback for static export (no server API)
-      const subject = encodeURIComponent(form.subject || "Contact from Website");
-      const body = encodeURIComponent(
-        `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${form.company || "N/A"}\n\n${form.message}`
-      );
-      window.location.href = `mailto:info@wisdomera.net?subject=${subject}&body=${body}`;
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "d52ea871-2065-4da9-8a99-90aca1f41335",
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          subject: form.subject || "Contact from Wisdom Era Website",
+          message: form.message,
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error("Failed");
       setStatus("success");
       setForm(initialData);
     } catch {
