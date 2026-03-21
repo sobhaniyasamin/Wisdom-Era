@@ -39,6 +39,9 @@ export const metadata: Metadata = {
       "AI-focused tech holding company investing in and co-building the future of e-commerce and agriculture across emerging markets.",
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
