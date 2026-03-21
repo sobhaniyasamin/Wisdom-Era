@@ -11,7 +11,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 pb-12 border-b border-white/[0.08]">
           <div className="max-w-[320px]">
             <Link href="/" className="flex items-center gap-3 no-underline mb-4">
-              <Logo size={36} />
+              <Logo size={52} />
               <span className="font-serif text-[1.1rem] font-bold text-white tracking-[1.5px] uppercase">
                 Wisdom Era
               </span>
