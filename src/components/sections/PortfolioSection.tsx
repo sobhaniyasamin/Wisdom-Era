@@ -13,7 +13,7 @@ export function PortfolioSection() {
           subtitle="Each company in our ecosystem strengthens the next — creating a compounding effect across the group."
         />
       </ScrollReveal>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
         {portfolioCompanies.map((company, i) => (
           <PortfolioCard key={company.slug} company={company} delay={i * 0.1} />
         ))}

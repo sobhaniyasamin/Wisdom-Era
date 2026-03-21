@@ -13,9 +13,9 @@ export function PortfolioCard({
   delay: number;
 }) {
   return (
-    <ScrollReveal delay={delay}>
-      <Link href={`/portfolio/${company.slug}`} className="block no-underline group">
-        <div className="bg-white rounded-[20px] overflow-hidden border border-navy/[0.06] transition-all duration-400 ease-out-expo hover:-translate-y-1.5 hover:shadow-[0_20px_60px_rgba(46,62,111,0.1)]">
+    <ScrollReveal delay={delay} className="h-full">
+      <div className="bg-white rounded-[20px] overflow-hidden border border-navy/[0.06] transition-all duration-400 ease-out-expo hover:-translate-y-1.5 hover:shadow-[0_20px_60px_rgba(46,62,111,0.1)] h-full flex flex-col">
+        <Link href={`/portfolio/${company.slug}`} className="block no-underline group flex-1">
           <div className="px-8 pt-8 pb-5 flex items-start gap-5">
             <img
               src={company.logoSrc}
@@ -38,26 +38,25 @@ export function PortfolioCard({
           <div className="px-8 pb-6">
             <p className="text-text-muted text-[0.93rem] leading-[1.75]">{company.description}</p>
           </div>
-          <div className="px-8 py-4 border-t border-navy/[0.06] flex items-center justify-between">
-            <div className="flex gap-2 flex-wrap">
-              {company.tags.map((tag) => (
-                <Badge key={tag} variant="light">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-            <a
-              href={company.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center gap-1.5 text-teal text-sm font-medium hover:text-teal-dark transition-colors shrink-0 ml-3"
-            >
-              Visit <ExternalLink size={14} />
-            </a>
+        </Link>
+        <div className="px-8 py-4 border-t border-navy/[0.06] flex items-center justify-between mt-auto">
+          <div className="flex gap-2 flex-wrap">
+            {company.tags.map((tag) => (
+              <Badge key={tag} variant="light">
+                {tag}
+              </Badge>
+            ))}
           </div>
+          <a
+            href={company.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-teal text-sm font-medium hover:text-teal-dark transition-colors shrink-0 ml-3"
+          >
+            Visit <ExternalLink size={14} />
+          </a>
         </div>
-      </Link>
+      </div>
     </ScrollReveal>
   );
 }
