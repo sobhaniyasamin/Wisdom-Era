@@ -46,10 +46,10 @@ export default function ContactPage() {
                     <div>
                       <div className="text-sm font-medium text-navy mb-1">Email</div>
                       <a
-                        href="mailto:info@wisdomera.com"
+                        href="mailto:info@wisdomera.net"
                         className="text-text-muted text-sm hover:text-teal transition-colors"
                       >
-                        info@wisdomera.com
+                        info@wisdomera.net
                       </a>
                     </div>
                   </div>

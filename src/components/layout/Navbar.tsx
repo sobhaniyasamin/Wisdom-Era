@@ -30,7 +30,7 @@ export function Navbar() {
         aria-label="Main navigation"
       >
         <Link href="/" className="flex items-center gap-3 no-underline">
-          <Logo size={100} />
+          <Logo size={50} />
           <span className="font-serif text-[1.35rem] font-bold text-white tracking-[1.5px] uppercase">
             Wisdom Era
           </span>

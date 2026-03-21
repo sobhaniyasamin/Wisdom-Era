@@ -53,12 +53,8 @@ export function AboutSection() {
               </div>
               <div className="relative z-[1] mt-10 pt-8 border-t border-white/10">
                 <p className="font-serif italic text-[1.1rem] leading-relaxed text-white/85">
-                  &ldquo;AI is not just another wave, it is the wave. We see AI not as a passing
-                  trend but as a structural shift.&rdquo;
+                  &ldquo;Wisdom Era is designed with a unique structure that lets us operate not just as investors, but as true co-founders to the startups we back.&rdquo;
                 </p>
-                <cite className="block mt-4 not-italic text-[0.85rem] text-teal font-semibold">
-                  — Vahid Shirazi, Co-founder &amp; CEO
-                </cite>
               </div>
             </div>
           </div>
