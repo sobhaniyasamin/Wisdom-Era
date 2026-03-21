@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { PortfolioCompany } from "@/data/portfolio";
@@ -38,12 +38,23 @@ export function PortfolioCard({
           <div className="px-8 pb-6">
             <p className="text-text-muted text-[0.93rem] leading-[1.75]">{company.description}</p>
           </div>
-          <div className="px-8 py-4 border-t border-navy/[0.06] flex gap-2 flex-wrap">
-            {company.tags.map((tag) => (
-              <Badge key={tag} variant="light">
-                {tag}
-              </Badge>
-            ))}
+          <div className="px-8 py-4 border-t border-navy/[0.06] flex items-center justify-between">
+            <div className="flex gap-2 flex-wrap">
+              {company.tags.map((tag) => (
+                <Badge key={tag} variant="light">
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+            <a
+              href={company.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1.5 text-teal text-sm font-medium hover:text-teal-dark transition-colors shrink-0 ml-3"
+            >
+              Visit <ExternalLink size={14} />
+            </a>
           </div>
         </div>
       </Link>

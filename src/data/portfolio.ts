@@ -5,6 +5,7 @@ export interface PortfolioCompany {
   description: string;
   fullDescription: string;
   logoSrc: string;
+  website: string;
   tags: string[];
   sector: "E-Commerce" | "Agriculture" | "AI";
   highlights: { label: string; value: string }[];
@@ -21,6 +22,7 @@ export const portfolioCompanies: PortfolioCompany[] = [
     fullDescription:
       "Torob is the largest and most trusted price comparison engine in Iran, processing millions of product searches every month. The platform aggregates real-time pricing data from thousands of online retailers, giving consumers unprecedented transparency in their purchasing decisions.\n\nThe platform's AI-powered ranking algorithm doesn't just sort by price — it factors in store reputation scores, delivery reliability metrics, return policies, and historical pricing trends to surface the best overall deals. This multi-factor approach has earned Torob the trust of millions of Iranian consumers.\n\nFor merchants, Torob operates on a cost-per-click (CPC) advertising model, providing a highly efficient channel to reach high-intent buyers who are actively comparing prices and ready to purchase. This creates a win-win ecosystem where consumers find better deals and merchants acquire customers at scale.",
     logoSrc: "/torob.svg",
+    website: "https://torob.com/",
     tags: ["Price Comparison", "CPC Model", "E-Commerce", "Iran Market Leader"],
     sector: "E-Commerce",
     highlights: [
@@ -47,6 +49,7 @@ export const portfolioCompanies: PortfolioCompany[] = [
     fullDescription:
       "ModAI represents the next evolution in social commerce — a platform that bridges the gap between social media inspiration and actual purchasing. Traditional social commerce is fragmented and unreliable; ModAI brings structure, trust, and AI-powered discovery to the experience.\n\nAt the core of ModAI is its visual search technology. Users can photograph any product they encounter — whether on the street, in a magazine, or on social media — and ModAI's AI engine instantly identifies the item and surfaces matching products available for purchase. This creates a frictionless path from \"I want that\" to \"I bought it.\"\n\nThe platform combines the engagement mechanics of social shopping (following tastemakers, curated collections, trending items) with the reliability infrastructure of e-commerce (verified sellers, secure payments, delivery tracking). This hybrid approach serves both consumers looking for authentic product discovery and merchants seeking new sales channels.",
     logoSrc: "/Modai.svg",
+    website: "https://modai.fashion/",
     tags: ["Visual Search", "Social Commerce", "AI-Powered"],
     sector: "E-Commerce",
     highlights: [
@@ -73,6 +76,7 @@ export const portfolioCompanies: PortfolioCompany[] = [
     fullDescription:
       "Baghboon is transforming agriculture by creating a direct bridge between farmers and agricultural experts. In many emerging markets, farmers lack access to timely expert advice, leading to crop losses, inefficient practices, and missed opportunities. Baghboon solves this through a marketplace that connects growers with verified botanists and agronomists.\n\nThe platform enables farmers to submit questions about crop health, pest management, soil conditions, and planting strategies. Expert botanists respond with personalized guidance, and when hands-on assessment is needed, they can schedule farm visits through the platform. This on-demand expert network brings university-level agricultural knowledge directly to the field.\n\nBeyond consultation, Baghboon is building the digital infrastructure for the agricultural supply chain — from seed sourcing and input procurement to harvest planning and market access. By digitizing these traditionally offline processes, Baghboon helps farmers optimize their operations and improve yields.",
     logoSrc: "/baghboon.svg",
+    website: "https://baghboon.com/",
     tags: ["AgTech", "Expert Network", "Marketplace", "Agriculture"],
     sector: "Agriculture",
     highlights: [
@@ -99,6 +103,7 @@ export const portfolioCompanies: PortfolioCompany[] = [
     fullDescription:
       "Mori is redefining sales automation with AI agents that don't just send messages — they understand context, personalize conversations, and qualify leads with human-like nuance. Traditional sales automation tools blast generic sequences; Mori creates genuine, personalized engagement at scale.\n\nThe platform's conversational AI handles the entire top-of-funnel pipeline: initial outreach, lead qualification, objection handling, meeting scheduling, and persistent follow-up. Each interaction is contextually aware, drawing on prospect data, company information, and conversation history to create relevant, compelling dialogues.\n\nFor businesses, Mori represents an always-on sales team that never sleeps, never forgets to follow up, and continuously improves its approach based on what works. The result is dramatically higher response rates, more qualified pipeline, and sales teams freed to focus on closing rather than prospecting.",
     logoSrc: "/Mori.svg",
+    website: "https://ai.mori.style",
     tags: ["AI Agent", "Sales Automation", "Conversational AI"],
     sector: "AI",
     highlights: [

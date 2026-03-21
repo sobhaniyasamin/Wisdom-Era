@@ -2,7 +2,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, ExternalLink } from "lucide-react";
 import { portfolioCompanies } from "@/data/portfolio";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -56,12 +56,20 @@ export default function PortfolioDetailPage({ params }: Props) {
               <p className="text-teal text-lg font-medium">{company.tagline}</p>
             </div>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {company.tags.map((tag) => (
               <Badge key={tag} variant="dark">
                 {tag}
               </Badge>
             ))}
+            <a
+              href={company.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 bg-teal text-navy-deep px-4 py-1.5 rounded-md text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(104,197,178,0.4)] ml-2"
+            >
+              Visit Website <ExternalLink size={14} />
+            </a>
           </div>
         </div>
       </section>
