@@ -1,6 +1,7 @@
 export interface TeamMember {
   name: string;
   role: string;
+  photo?: string;
   initials: string;
   gradient: string;
 }
@@ -9,19 +10,15 @@ export const teamMembers: TeamMember[] = [
   {
     name: "Vahid Shirazi",
     role: "Co-founder & CEO",
+    photo: "/vahid.PNG",
     initials: "VS",
     gradient: "from-navy to-navy-light",
   },
   {
-    name: "Ali Kashfipour",
-    role: "Co-founder & CTO",
-    initials: "AK",
+    name: "Ali Yazdani",
+    role: "Growth Leader",
+    photo: "/ali.JPG",
+    initials: "AY",
     gradient: "from-teal-dark to-teal",
-  },
-  {
-    name: "Coming Soon",
-    role: "VP of Operations",
-    initials: "++",
-    gradient: "from-coral to-[#d45a30]",
   },
 ];
