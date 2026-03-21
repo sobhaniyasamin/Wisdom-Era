@@ -2,7 +2,7 @@
 export function Logo({ size = 42 }: { size?: number }) {
   return (
     <img
-      src="/favicon.svg"
+      src="/logo.svg"
       alt=""
       aria-hidden="true"
       width={size}
