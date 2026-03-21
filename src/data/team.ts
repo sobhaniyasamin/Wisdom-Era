@@ -10,7 +10,7 @@ export const teamMembers: TeamMember[] = [
   {
     name: "Vahid Shirazi",
     role: "Co-founder & CEO",
-    photo: "/vahid.PNG",
+    photo: "/vahid.JPG",
     initials: "VS",
     gradient: "from-navy to-navy-light",
   },
