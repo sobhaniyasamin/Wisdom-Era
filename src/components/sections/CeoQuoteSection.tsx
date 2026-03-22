@@ -2,7 +2,7 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function CeoQuoteSection() {
   return (
-    <section className="bg-navy py-20 md:py-24 px-[5%] md:px-[8%] relative overflow-hidden">
+    <section data-section="ceo-quote" className="bg-navy py-20 md:py-24 px-[5%] md:px-[8%] relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_50%,rgba(104,197,178,0.08)_0%,transparent_50%),radial-gradient(circle_at_90%_50%,rgba(104,197,178,0.05)_0%,transparent_50%)]" />
       <ScrollReveal>
         <div className="max-w-[900px] mx-auto text-center relative z-[1]">

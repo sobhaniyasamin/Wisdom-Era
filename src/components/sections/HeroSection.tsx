@@ -6,7 +6,7 @@ import { NetworkAnimation } from "@/components/canvas/NetworkAnimation";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen bg-navy flex items-center overflow-hidden">
+    <section data-section="hero" className="relative min-h-screen bg-navy flex items-center overflow-hidden">
       <NetworkAnimation />
 
       <div className="relative z-[2] px-[5%] md:px-[8%] max-w-[800px]">

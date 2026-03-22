@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { ConstellationBackground } from "@/components/canvas/ConstellationBackground";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -52,15 +53,20 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
       <body className="antialiased">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:bg-teal focus:text-navy-deep focus:px-4 focus:py-2 focus:rounded-md focus:font-semibold"
-        >
-          Skip to content
-        </a>
-        <Navbar />
-        <main id="main-content">{children}</main>
-        <Footer />
+        <div className="relative min-h-screen">
+          <ConstellationBackground />
+          <div className="relative z-[1]">
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:bg-teal focus:text-navy-deep focus:px-4 focus:py-2 focus:rounded-md focus:font-semibold"
+            >
+              Skip to content
+            </a>
+            <Navbar />
+            <main id="main-content">{children}</main>
+            <Footer />
+          </div>
+        </div>
       </body>
     </html>
   );
