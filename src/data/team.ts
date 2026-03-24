@@ -14,11 +14,4 @@ export const teamMembers: TeamMember[] = [
     initials: "VS",
     gradient: "from-navy to-navy-light",
   },
-  {
-    name: "Ali Yazdani",
-    role: "Growth Leader",
-    photo: "/ali.JPG",
-    initials: "AY",
-    gradient: "from-teal-dark to-teal",
-  },
 ];
