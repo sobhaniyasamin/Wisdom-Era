@@ -76,7 +76,7 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/wisdom-era/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/30 hover:text-teal transition-colors"

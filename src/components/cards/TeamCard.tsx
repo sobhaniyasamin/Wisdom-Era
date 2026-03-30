@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { Linkedin } from "lucide-react";
 import type { TeamMember } from "@/data/team";
 
 export function TeamCard({ member, delay }: { member: TeamMember; delay: number }) {
@@ -21,6 +22,17 @@ export function TeamCard({ member, delay }: { member: TeamMember; delay: number 
         )}
         <h4 className="text-lg text-navy mb-1">{member.name}</h4>
         <p className="text-text-muted text-sm">{member.role}</p>
+        {member.linkedin && (
+          <a
+            href={member.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center mt-3 text-navy/30 hover:text-teal transition-colors"
+            aria-label={`${member.name} on LinkedIn`}
+          >
+            <Linkedin size={18} />
+          </a>
+        )}
       </div>
     </ScrollReveal>
   );
