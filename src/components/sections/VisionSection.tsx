@@ -31,7 +31,7 @@ const visionGoals = [
 
 export function VisionSection() {
   return (
-    <section className="bg-navy py-20 md:py-28 px-[5%] md:px-[8%] relative overflow-hidden">
+    <section id="vision" className="bg-navy py-20 md:py-28 px-[5%] md:px-[8%] relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(104,197,178,0.06)_0%,transparent_50%),radial-gradient(ellipse_at_70%_80%,rgba(104,197,178,0.04)_0%,transparent_50%)]" />
 
       <div className="max-w-[1100px] mx-auto relative z-[1]">
