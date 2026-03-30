@@ -5,6 +5,7 @@ import { PortfolioSection } from "@/components/sections/PortfolioSection";
 import { ApproachSection } from "@/components/sections/ApproachSection";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { CeoQuoteSection } from "@/components/sections/CeoQuoteSection";
+import { VisionSection } from "@/components/sections/VisionSection";
 import { CtaSection } from "@/components/sections/CtaSection";
 
 export default function HomePage() {
@@ -17,6 +18,7 @@ export default function HomePage() {
       <ApproachSection />
       <TeamSection />
       <CeoQuoteSection />
+      <VisionSection />
       <CtaSection />
     </>
   );
