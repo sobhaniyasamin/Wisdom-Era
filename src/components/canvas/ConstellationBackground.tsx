@@ -100,7 +100,9 @@ export function ConstellationBackground() {
       const r = Math.round(104 + (255 - 104) * f);
       const g = Math.round(197 + (255 - 197) * f);
       const b = Math.round(178 + (255 - 178) * f);
-      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      // Reduce opacity on navy sections, keep cream as-is
+      const adjusted = alpha * (1 - f * 0.5);
+      return `rgba(${r}, ${g}, ${b}, ${adjusted})`;
     }
 
     function draw() {
