@@ -2,36 +2,13 @@
 
 import { useRef, useEffect } from "react";
 
-// X positions for zigzag waypoints (% of viewport width)
-const WAYPOINT_X = [0.18, 0.62, 0.35, 0.72, 0.25, 0.58, 0.78];
-
-// Selectors for content elements the line should fade behind
-const CONTENT_SELECTOR = [
-  "#main-content h1",
-  "#main-content h2",
-  "#main-content h3",
-  "#main-content h4",
-  "#main-content h5",
-  "#main-content h6",
-  "#main-content p",
-  "#main-content blockquote",
-  '#main-content [class*="rounded-2xl"]',
-  '#main-content [class*="rounded-xl"]',
-  '#main-content [class*="rounded-3xl"]',
-].join(", ");
-
-interface Rect {
-  left: number;
-  right: number;
-  top: number;
-  bottom: number;
-}
+// Zigzag X positions (% of viewport width) — stay away from center to avoid title overlap
+const WAYPOINT_X = [0.12, 0.85, 0.15, 0.82, 0.1, 0.88, 0.14, 0.84, 0.12];
 
 export function ConstellationBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const waypointsRef = useRef<{ x: number; y: number }[]>([]);
   const navyZonesRef = useRef<[number, number][]>([]);
-  const contentRectsRef = useRef<Rect[]>([]);
   const tickingRef = useRef(false);
 
   useEffect(() => {
@@ -60,13 +37,15 @@ export function ConstellationBackground() {
 
       if (sections.length === 0) return;
 
-      // Entry: off-screen left at hero bottom
+      // Hero navy zone
       const heroRect = sections[0].getBoundingClientRect();
       const heroBottom = heroRect.bottom + scrollY;
-      waypoints.push({ x: -40, y: heroBottom });
       navyZones.push([heroRect.top + scrollY, heroBottom]);
 
-      // One waypoint per section after hero
+      // Entry: off-screen left at hero bottom
+      waypoints.push({ x: -40, y: heroBottom });
+
+      // Waypoint per section after hero — dot sits above the title text
       for (let i = 1; i < sections.length; i++) {
         const section = sections[i];
         const rect = section.getBoundingClientRect();
@@ -76,9 +55,14 @@ export function ConstellationBackground() {
         if (isNavy) navyZones.push([top, bottom]);
 
         const xIdx = Math.min(i - 1, WAYPOINT_X.length - 1);
+        // Clamp X so dot stays at least 30px from edges on any screen
+        const rawX = w * WAYPOINT_X[xIdx];
+        const x = Math.max(30, Math.min(w - 30, rawX));
+
         waypoints.push({
-          x: w * WAYPOINT_X[xIdx],
-          y: top + Math.min(140, (bottom - top) * 0.18),
+          x,
+          // Position dot in the top padding of each section, above label/title text
+          y: top + 40,
         });
       }
 
@@ -93,27 +77,11 @@ export function ConstellationBackground() {
 
       waypointsRef.current = waypoints;
       navyZonesRef.current = navyZones;
-
-      // Collect content bounding rects (page coordinates)
-      const padding = 20;
-      const rects: Rect[] = [];
-      document.querySelectorAll(CONTENT_SELECTOR).forEach((el) => {
-        const r = el.getBoundingClientRect();
-        // Skip tiny elements (badges, icons, small buttons)
-        if (r.width < 80 || r.height < 24) return;
-        rects.push({
-          left: r.left - padding,
-          right: r.right + padding,
-          top: r.top + scrollY - padding,
-          bottom: r.bottom + scrollY + padding,
-        });
-      });
-      contentRectsRef.current = rects;
     }
 
-    // Returns 0 = cream zone, 1 = navy zone, with smooth blend at edges
+    // Smooth color blend: teal on cream, white on navy
     function navyFactor(y: number): number {
-      const blend = 80; // px to blend over
+      const blend = 80;
       let factor = 0;
       for (const [top, bottom] of navyZonesRef.current) {
         if (y >= top + blend && y <= bottom - blend) return 1;
@@ -127,33 +95,12 @@ export function ConstellationBackground() {
       return factor;
     }
 
-    // Smooth color interpolation between teal and white
     function lineColor(y: number, alpha: number): string {
       const f = navyFactor(y);
       const r = Math.round(104 + (255 - 104) * f);
       const g = Math.round(197 + (255 - 197) * f);
       const b = Math.round(178 + (255 - 178) * f);
       return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    }
-
-    // Returns 0 = no masking, 1 = fully masked, with smooth fade at edges
-    function contentMask(x: number, y: number): number {
-      const fadeZone = 45;
-      let minDist = Infinity;
-
-      for (const rect of contentRectsRef.current) {
-        const dx = Math.max(rect.left - x, 0, x - rect.right);
-        const dy = Math.max(rect.top - y, 0, y - rect.bottom);
-
-        if (dx === 0 && dy === 0) return 1; // inside rect
-
-        minDist = Math.min(minDist, Math.sqrt(dx * dx + dy * dy));
-      }
-
-      if (minDist >= fadeZone) return 0;
-      // Smooth ease-in-out curve
-      const t = 1 - minDist / fadeZone;
-      return t * t * (3 - 2 * t);
     }
 
     function draw() {
@@ -168,9 +115,9 @@ export function ConstellationBackground() {
       if (waypoints.length < 2) return;
 
       const frontier = scrollY + vh * 0.75;
-      const step = 8;
 
       ctx!.lineCap = "round";
+      ctx!.lineJoin = "round";
       ctx!.lineWidth = 1.5;
 
       for (let i = 1; i < waypoints.length; i++) {
@@ -179,50 +126,30 @@ export function ConstellationBackground() {
 
         if (from.y > frontier) break;
 
-        let segEndX = to.x;
-        let segEndY = to.y;
+        let endX = to.x;
+        let endY = to.y;
         let reachedDot = true;
 
         if (to.y > frontier) {
           const t = (frontier - from.y) / (to.y - from.y);
-          segEndX = from.x + (to.x - from.x) * t;
-          segEndY = frontier;
+          endX = from.x + (to.x - from.x) * t;
+          endY = frontier;
           reachedDot = false;
         }
 
-        // Subdivide segment — dim where it crosses content
-        const dx = segEndX - from.x;
-        const dy = segEndY - from.y;
-        const segLen = Math.sqrt(dx * dx + dy * dy);
-        const steps = Math.max(1, Math.ceil(segLen / step));
+        // Draw full segment — uniform opacity
+        const midY = (from.y + endY) / 2;
+        ctx!.beginPath();
+        ctx!.moveTo(from.x, from.y - scrollY);
+        ctx!.lineTo(endX, endY - scrollY);
+        ctx!.strokeStyle = lineColor(midY, 0.3);
+        ctx!.stroke();
 
-        for (let s = 0; s < steps; s++) {
-          const t0 = s / steps;
-          const t1 = (s + 1) / steps;
-          const x0 = from.x + dx * t0;
-          const y0 = from.y + dy * t0;
-          const x1 = from.x + dx * t1;
-          const y1 = from.y + dy * t1;
-
-          const midX = (x0 + x1) / 2;
-          const midY = (y0 + y1) / 2;
-          const mask = contentMask(midX, midY);
-          const alpha = 0.35 - mask * 0.29; // 0.35 → 0.06
-
-          ctx!.beginPath();
-          ctx!.moveTo(x0, y0 - scrollY);
-          ctx!.lineTo(x1, y1 - scrollY);
-          ctx!.strokeStyle = lineColor(midY, alpha);
-          ctx!.stroke();
-        }
-
-        // Dot at completed waypoint (skip entry & exit)
+        // Bigger dot at section waypoint (skip entry & exit)
         if (reachedDot && i > 0 && i < waypoints.length - 1) {
-          const mask = contentMask(to.x, to.y);
-          const dotAlpha = 0.55 - mask * 0.47; // 0.55 → 0.08
           ctx!.beginPath();
-          ctx!.arc(to.x, to.y - scrollY, 5, 0, Math.PI * 2);
-          ctx!.fillStyle = lineColor(to.y, dotAlpha);
+          ctx!.arc(to.x, to.y - scrollY, 7, 0, Math.PI * 2);
+          ctx!.fillStyle = lineColor(to.y, 0.5);
           ctx!.fill();
         }
       }
