@@ -142,14 +142,14 @@ export function ConstellationBackground() {
         ctx!.beginPath();
         ctx!.moveTo(from.x, from.y - scrollY);
         ctx!.lineTo(endX, endY - scrollY);
-        ctx!.strokeStyle = lineColor(midY, 0.3);
+        ctx!.strokeStyle = lineColor(midY, 0.15);
         ctx!.stroke();
 
         // Bigger dot at section waypoint (skip entry & exit)
         if (reachedDot && i > 0 && i < waypoints.length - 1) {
           ctx!.beginPath();
           ctx!.arc(to.x, to.y - scrollY, 7, 0, Math.PI * 2);
-          ctx!.fillStyle = lineColor(to.y, 0.5);
+          ctx!.fillStyle = lineColor(to.y, 0.3);
           ctx!.fill();
         }
       }
@@ -191,7 +191,7 @@ export function ConstellationBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-[2]"
+      className="fixed inset-0 pointer-events-none z-[1]"
       aria-hidden="true"
     />
   );
