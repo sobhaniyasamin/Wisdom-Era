@@ -12,6 +12,7 @@ interface Rect {
   bottom: number;
 }
 
+// Only text elements — cards/containers stay visible
 const CONTENT_SELECTOR = [
   "#main-content h1",
   "#main-content h2",
@@ -21,9 +22,6 @@ const CONTENT_SELECTOR = [
   "#main-content h6",
   "#main-content p",
   "#main-content blockquote",
-  '#main-content [class*="rounded-2xl"]',
-  '#main-content [class*="rounded-xl"]',
-  '#main-content [class*="rounded-3xl"]',
 ].join(", ");
 
 export function ConstellationBackground() {
@@ -218,16 +216,12 @@ export function ConstellationBackground() {
           ctx!.stroke();
         }
 
-        // Dot at section waypoint (skip entry & exit)
+        // Dot at section waypoint (skip entry & exit) — always visible
         if (reachedDot && i > 0 && i < waypoints.length - 1) {
-          const mask = contentMask(to.x, to.y);
-          const dotAlpha = 0.3 * (1 - mask);
-          if (dotAlpha > 0.005) {
-            ctx!.beginPath();
-            ctx!.arc(to.x, to.y - scrollY, 7, 0, Math.PI * 2);
-            ctx!.fillStyle = lineColor(to.y, dotAlpha);
-            ctx!.fill();
-          }
+          ctx!.beginPath();
+          ctx!.arc(to.x, to.y - scrollY, 7, 0, Math.PI * 2);
+          ctx!.fillStyle = lineColor(to.y, 0.3);
+          ctx!.fill();
         }
       }
     }
