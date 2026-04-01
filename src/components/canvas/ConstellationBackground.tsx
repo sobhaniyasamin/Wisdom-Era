@@ -2,9 +2,6 @@
 
 import { useRef, useEffect } from "react";
 
-// Zigzag X positions (% of viewport width) — stay away from center to avoid title overlap
-const WAYPOINT_X = [0.12, 0.85, 0.15, 0.82, 0.1, 0.88, 0.14, 0.84, 0.12];
-
 interface Rect {
   left: number;
   right: number;
@@ -12,8 +9,8 @@ interface Rect {
   bottom: number;
 }
 
-// Only text elements — cards/containers stay visible
-const CONTENT_SELECTOR = [
+// Only text elements trigger line masking
+const TEXT_SELECTOR = [
   "#main-content h1",
   "#main-content h2",
   "#main-content h3",
@@ -48,6 +45,19 @@ export function ConstellationBackground() {
       canvas!.style.height = `${vh}px`;
     }
 
+    // Find the content container bounds within a section
+    function getContentBounds(section: Element, w: number) {
+      const container = section.querySelector('[class*="max-w"]');
+      if (container) {
+        const r = container.getBoundingClientRect();
+        return { left: r.left, right: r.right };
+      }
+      // Fallback: estimate from section padding (px-[5%] md:px-[8%])
+      const sRect = section.getBoundingClientRect();
+      const pad = w >= 768 ? w * 0.08 : w * 0.05;
+      return { left: sRect.left + pad, right: sRect.right - pad };
+    }
+
     function measure() {
       const w = window.innerWidth;
       const scrollY = window.scrollY;
@@ -57,7 +67,7 @@ export function ConstellationBackground() {
 
       if (sections.length === 0) return;
 
-      // Hero navy zone
+      // Hero
       const heroRect = sections[0].getBoundingClientRect();
       const heroBottom = heroRect.bottom + scrollY;
       navyZones.push([heroRect.top + scrollY, heroBottom]);
@@ -65,43 +75,59 @@ export function ConstellationBackground() {
       // Entry: off-screen left at hero bottom
       waypoints.push({ x: -40, y: heroBottom });
 
-      // Waypoint per section after hero — dot sits above the title text
+      let lastSide: "left" | "right" = "right";
+
       for (let i = 1; i < sections.length; i++) {
         const section = sections[i];
-        const rect = section.getBoundingClientRect();
-        const top = rect.top + scrollY;
-        const bottom = rect.bottom + scrollY;
+        const sRect = section.getBoundingClientRect();
+        const top = sRect.top + scrollY;
+        const bottom = sRect.bottom + scrollY;
         const isNavy = section.classList.contains("bg-navy");
         if (isNavy) navyZones.push([top, bottom]);
 
-        const xIdx = Math.min(i - 1, WAYPOINT_X.length - 1);
-        // Clamp X so dot stays at least 30px from edges on any screen
-        const rawX = w * WAYPOINT_X[xIdx];
-        const x = Math.max(30, Math.min(w - 30, rawX));
+        // Measure actual content bounds
+        const bounds = getContentBounds(section, w);
+        const leftSpace = bounds.left;
+        const rightSpace = w - bounds.right;
 
-        waypoints.push({
-          x,
-          // Position dot in the top padding of each section, above label/title text
-          y: top + 40,
-        });
+        // Alternate sides, pick the margin
+        const goLeft = lastSide === "right";
+        let x: number;
+
+        if (goLeft && leftSpace > 12) {
+          x = Math.max(8, leftSpace / 2);
+          lastSide = "left";
+        } else if (!goLeft && rightSpace > 12) {
+          x = Math.min(w - 8, w - rightSpace / 2);
+          lastSide = "right";
+        } else if (leftSpace >= rightSpace) {
+          x = Math.max(8, leftSpace / 2);
+          lastSide = "left";
+        } else {
+          x = Math.min(w - 8, w - rightSpace / 2);
+          lastSide = "right";
+        }
+
+        waypoints.push({ x, y: top + 40 });
       }
 
-      // Exit: off-screen right at footer
+      // Exit: off-screen at footer
       const footer = document.querySelector("footer");
       if (footer) {
         const fRect = footer.getBoundingClientRect();
         const fTop = fRect.top + scrollY;
         navyZones.push([fTop, fRect.bottom + scrollY]);
-        waypoints.push({ x: w + 40, y: fTop });
+        const exitX = lastSide === "left" ? w + 40 : -40;
+        waypoints.push({ x: exitX, y: fTop });
       }
 
       waypointsRef.current = waypoints;
       navyZonesRef.current = navyZones;
 
-      // Collect content bounding rects for masking
+      // Collect text rects for line masking
       const padding = 15;
       const rects: Rect[] = [];
-      document.querySelectorAll(CONTENT_SELECTOR).forEach((el) => {
+      document.querySelectorAll(TEXT_SELECTOR).forEach((el) => {
         const r = el.getBoundingClientRect();
         if (r.width < 80 || r.height < 24) return;
         rects.push({
@@ -135,7 +161,6 @@ export function ConstellationBackground() {
       const r = Math.round(104 + (255 - 104) * f);
       const g = Math.round(197 + (255 - 197) * f);
       const b = Math.round(178 + (255 - 178) * f);
-      // Reduce opacity on navy sections, keep cream as-is
       const adjusted = alpha * (1 - f * 0.5);
       return `rgba(${r}, ${g}, ${b}, ${adjusted})`;
     }
@@ -167,6 +192,7 @@ export function ConstellationBackground() {
       if (waypoints.length < 2) return;
 
       const frontier = scrollY + vh * 0.75;
+      const step = 8;
 
       ctx!.lineCap = "round";
       ctx!.lineJoin = "round";
@@ -189,11 +215,10 @@ export function ConstellationBackground() {
           reachedDot = false;
         }
 
-        // Subdivide segment — invisible where it hits content
+        // Subdivide segment — invisible where it hits text
         const dx = endX - from.x;
         const dy = endY - from.y;
         const segLen = Math.sqrt(dx * dx + dy * dy);
-        const step = 8;
         const steps = Math.max(1, Math.ceil(segLen / step));
 
         for (let s = 0; s < steps; s++) {
@@ -216,7 +241,7 @@ export function ConstellationBackground() {
           ctx!.stroke();
         }
 
-        // Dot at section waypoint (skip entry & exit) — always visible
+        // Dot at section waypoint — always visible
         if (reachedDot && i > 0 && i < waypoints.length - 1) {
           ctx!.beginPath();
           ctx!.arc(to.x, to.y - scrollY, 7, 0, Math.PI * 2);
