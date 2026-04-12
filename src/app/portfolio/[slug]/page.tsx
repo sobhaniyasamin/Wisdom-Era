@@ -22,6 +22,7 @@ export function generateMetadata({ params }: Props): Metadata {
   return {
     title: `${company.name} — ${company.tagline}`,
     description: company.description,
+    alternates: { canonical: `/portfolio/${company.slug}` },
   };
 }
 

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Get in touch with Wisdom Era. Whether you're a founder, investor, or partner — we'd love to hear from you.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

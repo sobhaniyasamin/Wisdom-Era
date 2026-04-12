@@ -3,6 +3,7 @@ import { Playfair_Display, DM_Sans } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ConstellationBackground } from "@/components/canvas/ConstellationBackground";
+import { JsonLd } from "@/components/JsonLd";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -18,6 +19,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://wisdomera.net"),
   title: {
     default: "Wisdom Era — Keep Up with the Future",
     template: "%s | Wisdom Era",
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
     title: "Wisdom Era — Keep Up with the Future",
     description:
       "AI-focused tech holding company investing in and co-building the future of e-commerce and agriculture across emerging markets.",
-    url: "https://wisdomera.com",
+    url: "https://wisdomera.net",
     siteName: "Wisdom Era",
     locale: "en_US",
     type: "website",
@@ -53,6 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
       <body className="antialiased">
+        <JsonLd />
         <ConstellationBackground />
         <a
           href="#main-content"
