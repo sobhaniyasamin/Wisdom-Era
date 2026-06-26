@@ -241,11 +241,17 @@ export function ConstellationBackground() {
           ctx!.stroke();
         }
 
-        // Dot at section waypoint — always visible
+        // One clear node per section — soft halo + solid dot
         if (reachedDot && i > 0 && i < waypoints.length - 1) {
+          const cx = to.x;
+          const cy = to.y - scrollY;
           ctx!.beginPath();
-          ctx!.arc(to.x, to.y - scrollY, 7, 0, Math.PI * 2);
-          ctx!.fillStyle = lineColor(to.y, 0.3);
+          ctx!.arc(cx, cy, 7, 0, Math.PI * 2);
+          ctx!.fillStyle = lineColor(to.y, 0.12);
+          ctx!.fill();
+          ctx!.beginPath();
+          ctx!.arc(cx, cy, 3.5, 0, Math.PI * 2);
+          ctx!.fillStyle = lineColor(to.y, 0.7);
           ctx!.fill();
         }
       }
