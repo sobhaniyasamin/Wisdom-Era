@@ -7,32 +7,93 @@
     scroll-behavior: smooth;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    @apply bg-navy;
+    text-rendering: optimizeLegibility;
+    background-color: #0b0f19;
   }
 
   body {
-    @apply bg-cream text-text-dark font-sans overflow-x-hidden;
+    /* transparent so the fixed LineField canvas (-z-10) shows through;
+       the base color comes from the html background above. */
+    @apply bg-transparent text-paper font-sans overflow-x-hidden;
+    font-weight: 400;
+    letter-spacing: -0.005em;
   }
 
   h1, h2, h3, h4, h5 {
-    @apply font-serif font-bold;
+    @apply font-display;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* Selection + focus carry the brand accent */
+  ::selection {
+    background-color: rgba(92, 200, 189, 0.22);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #5cc8bd;
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  /* Refined dark scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #06080f;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e2636;
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2a3447;
+  }
+}
+
+@layer components {
+  /* Small uppercase technical label used across sections */
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 font-mono text-[0.72rem] font-medium tracking-[0.18em] uppercase text-accent;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply w-6 h-px bg-accent/60;
+  }
+
+  /* Hairline rule */
+  .hairline {
+    @apply border-ink-line;
   }
 }
 
 @layer utilities {
-  .animation-delay-200 {
-    animation-delay: 0.2s;
+  .animation-delay-200 { animation-delay: 0.2s; }
+  .animation-delay-500 { animation-delay: 0.5s; }
+  .animation-delay-700 { animation-delay: 0.7s; }
+  .animation-delay-900 { animation-delay: 0.9s; }
+  .animation-delay-1200 { animation-delay: 1.2s; }
+
+  /* Faint engineered grid backdrop for select sections */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 64px 64px;
   }
-  .animation-delay-500 {
-    animation-delay: 0.5s;
-  }
-  .animation-delay-700 {
-    animation-delay: 0.7s;
-  }
-  .animation-delay-900 {
-    animation-delay: 0.9s;
-  }
-  .animation-delay-1200 {
-    animation-delay: 1.2s;
+
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }

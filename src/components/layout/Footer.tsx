@@ -5,81 +5,68 @@ import { portfolioCompanies } from "@/data/portfolio";
 
 export function Footer() {
   return (
-    <footer className="bg-navy-deep pt-16 pb-8 px-[5%] md:px-[8%]">
+    <footer className="bg-ink-deep border-t border-ink-line pt-20 pb-10 px-[5%] md:px-[8%]">
       <div className="max-w-[1200px] mx-auto">
-        {/* Top */}
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8 pb-12 border-b border-white/[0.08]">
-          <div className="max-w-[320px]">
-            <Link href="/" className="flex items-center gap-3 no-underline mb-4">
-              <Logo size={44} />
-              <span className="font-serif text-[1.1rem] font-bold text-white tracking-[1.5px] uppercase">
+        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr_1fr] gap-12 pb-14 border-b border-ink-line">
+          <div className="max-w-[340px]">
+            <Link href="/" className="flex items-center gap-2.5 no-underline mb-5">
+              <Logo size={32} />
+              <span className="font-display text-[1rem] font-bold text-paper tracking-[0.14em] uppercase">
                 Wisdom Era
               </span>
             </Link>
-            <p className="text-white/40 text-[0.9rem] leading-relaxed">
+            <p className="text-paper-muted text-[0.92rem] leading-[1.7]">
               AI-focused tech holding company investing in and co-building the future of e-commerce
               and agriculture across emerging markets.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-12">
-            <div>
-              <h5 className="text-teal font-sans text-[0.78rem] font-semibold tracking-[2px] uppercase mb-5">
-                Portfolio
-              </h5>
-              {portfolioCompanies.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/portfolio/${c.slug}`}
-                  className="block text-white/50 no-underline text-[0.9rem] mb-3 transition-colors duration-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:rounded-sm"
-                >
-                  {c.name}
-                </Link>
-              ))}
-            </div>
-            <div>
-              <h5 className="text-teal font-sans text-[0.78rem] font-semibold tracking-[2px] uppercase mb-5">
-                Company
-              </h5>
+          <div>
+            <h5 className="font-mono text-[0.7rem] font-medium tracking-[0.16em] uppercase text-paper-faint mb-5">
+              Portfolio
+            </h5>
+            {portfolioCompanies.map((c) => (
               <Link
-                href="/#about"
-                className="block text-white/50 no-underline text-[0.9rem] mb-3 transition-colors duration-300 hover:text-white"
+                key={c.slug}
+                href={`/portfolio/${c.slug}`}
+                className="block text-paper-muted no-underline text-[0.92rem] mb-3 transition-colors duration-300 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:rounded-sm"
               >
-                About
+                {c.name}
               </Link>
+            ))}
+          </div>
+
+          <div>
+            <h5 className="font-mono text-[0.7rem] font-medium tracking-[0.16em] uppercase text-paper-faint mb-5">
+              Company
+            </h5>
+            {[
+              { label: "About", href: "/#about" },
+              { label: "Sectors", href: "/#sectors" },
+              { label: "Approach", href: "/#approach" },
+              { label: "Contact", href: "/contact" },
+            ].map((l) => (
               <Link
-                href="/#sectors"
-                className="block text-white/50 no-underline text-[0.9rem] mb-3 transition-colors duration-300 hover:text-white"
+                key={l.href}
+                href={l.href}
+                className="block text-paper-muted no-underline text-[0.92rem] mb-3 transition-colors duration-300 hover:text-accent"
               >
-                Sectors
+                {l.label}
               </Link>
-              <Link
-                href="/#approach"
-                className="block text-white/50 no-underline text-[0.9rem] mb-3 transition-colors duration-300 hover:text-white"
-              >
-                Approach
-              </Link>
-              <Link
-                href="/contact"
-                className="block text-white/50 no-underline text-[0.9rem] mb-3 transition-colors duration-300 hover:text-white"
-              >
-                Contact
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
 
-        {/* Bottom */}
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-white/25 text-[0.82rem]">
+          <p className="text-paper-faint text-[0.82rem] font-mono tracking-tight">
             &copy; 2026 Wisdom Era. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <a
               href="https://www.linkedin.com/company/wisdom-era/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/30 hover:text-teal transition-colors"
+              className="text-paper-faint hover:text-accent transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin size={18} />
@@ -88,14 +75,14 @@ export function Footer() {
               href="https://x.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/30 hover:text-teal transition-colors"
+              className="text-paper-faint hover:text-accent transition-colors"
               aria-label="X (Twitter)"
             >
               <Twitter size={18} />
             </a>
             <a
               href="mailto:info@wisdomera.net"
-              className="text-white/30 hover:text-teal transition-colors"
+              className="text-paper-faint hover:text-accent transition-colors"
               aria-label="Email"
             >
               <Mail size={18} />

@@ -4,18 +4,23 @@ import { ArrowLeft } from "lucide-react";
 export default function NotFound() {
   return (
     <section className="min-h-[80vh] flex items-center justify-center px-[5%] md:px-[8%]">
-      <div className="text-center max-w-[500px]">
-        <div className="font-serif text-[8rem] font-bold text-navy/10 leading-none mb-4">404</div>
-        <h1 className="text-3xl text-navy mb-4">Page Not Found</h1>
-        <p className="text-text-muted mb-8 leading-relaxed">
-          The page you&apos;re looking for doesn&apos;t exist or has been moved.
+      <div className="text-center max-w-[520px]">
+        <div className="font-mono text-[0.72rem] tracking-[0.2em] uppercase text-accent mb-6">
+          Error 404
+        </div>
+        <div className="font-display text-[clamp(5rem,14vw,9rem)] font-extrabold text-paper/[0.08] leading-none mb-4 select-none">
+          404
+        </div>
+        <h1 className="text-3xl text-paper mb-4 tracking-[-0.02em]">Page not found</h1>
+        <p className="text-paper-muted mb-9 leading-relaxed">
+          The page you&rsquo;re looking for doesn&rsquo;t exist or has been moved.
         </p>
         <Link
           href="/"
-          className="inline-flex items-center gap-2 bg-navy text-white px-8 py-3.5 rounded-lg font-semibold transition-all duration-300 hover:bg-navy-deep hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(46,62,111,0.25)] no-underline"
+          className="inline-flex items-center gap-2 bg-accent text-ink-deep px-7 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-accent-bright hover:shadow-[0_0_30px_-6px_rgba(92,200,189,0.5)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
         >
           <ArrowLeft size={18} />
-          Back to Home
+          Back to home
         </Link>
       </div>
     </section>

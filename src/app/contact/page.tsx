@@ -6,69 +6,60 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Wisdom Era. Whether you're a founder, investor, or partner — we'd love to hear from you.",
+    "Get in touch with Wisdom Era. Whether you're a founder, investor, or partner, we'd love to hear from you.",
   alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
   return (
-    <>
-      <section className="bg-navy pt-32 pb-16 px-[5%] md:px-[8%] relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(104,197,178,0.08)_0%,transparent_50%)]" />
-        <div className="max-w-[800px] mx-auto text-center relative z-[1]">
-          <div className="inline-flex items-center gap-2.5 text-teal text-[0.78rem] font-semibold tracking-[3px] uppercase mb-5 before:content-[''] before:w-[30px] before:h-[2px] before:bg-teal">
-            Contact
-          </div>
-          <h1 className="text-[clamp(2.5rem,4vw,3.5rem)] text-white leading-tight mb-4">
-            Let&apos;s Start a Conversation
+    <section className="pt-36 pb-28 px-[5%] md:px-[8%]">
+      <div className="max-w-[1100px] mx-auto">
+        <ScrollReveal>
+          <div className="eyebrow">Contact</div>
+          <h1 className="mt-5 text-[clamp(2.4rem,5vw,3.6rem)] text-paper leading-[1.05] tracking-[-0.02em] max-w-[16ch] text-balance">
+            Let&rsquo;s start a <em className="not-italic text-accent font-medium">conversation</em>.
           </h1>
-          <p className="text-white/60 text-lg leading-relaxed">
-            Whether you&apos;re a founder with an ambitious idea, an investor, or a potential
-            partner — we&apos;d love to hear from you.
+          <p className="mt-5 text-paper-muted text-[1.05rem] leading-[1.7] max-w-[52ch]">
+            Whether you&rsquo;re a founder with an ambitious idea, an investor, or a potential
+            partner, we&rsquo;d love to hear from you.
           </p>
-        </div>
-      </section>
+        </ScrollReveal>
 
-      <section className="py-16 px-[5%] md:px-[8%]">
-        <div className="max-w-[900px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="md:col-span-2">
-              <ScrollReveal>
-                <h2 className="text-2xl text-navy mb-6">Send us a message</h2>
-                <ContactForm />
-              </ScrollReveal>
-            </div>
-            <div>
-              <ScrollReveal delay={0.2}>
-                <h3 className="text-lg text-navy mb-6">Other ways to reach us</h3>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-3">
-                    <Mail className="w-5 h-5 text-teal flex-shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-sm font-medium text-navy mb-1">Email</div>
-                      <a
-                        href="mailto:info@wisdomera.net"
-                        className="text-text-muted text-sm hover:text-teal transition-colors"
-                      >
-                        info@wisdomera.net
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-teal flex-shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-sm font-medium text-navy mb-1">Region</div>
-                      <p className="text-text-muted text-sm">
-                        MENA &amp; Global
-                      </p>
-                    </div>
+        <div className="mt-16 grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-12 lg:gap-20">
+          <ScrollReveal>
+            <ContactForm />
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.15}>
+            <div className="lg:border-l lg:border-ink-line lg:pl-12">
+              <h2 className="font-mono text-[0.72rem] tracking-[0.16em] uppercase text-paper-faint mb-7">
+                Other ways to reach us
+              </h2>
+              <div className="space-y-8">
+                <div className="flex items-start gap-3.5">
+                  <Mail className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" strokeWidth={1.7} />
+                  <div>
+                    <div className="text-paper font-medium mb-1">Email</div>
+                    <a
+                      href="mailto:info@wisdomera.net"
+                      className="text-paper-muted text-[0.95rem] hover:text-accent transition-colors"
+                    >
+                      info@wisdomera.net
+                    </a>
                   </div>
                 </div>
-              </ScrollReveal>
+                <div className="flex items-start gap-3.5">
+                  <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" strokeWidth={1.7} />
+                  <div>
+                    <div className="text-paper font-medium mb-1">Region</div>
+                    <p className="text-paper-muted text-[0.95rem]">MENA &amp; Global</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

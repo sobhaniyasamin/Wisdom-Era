@@ -1,17 +1,27 @@
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { Milestone } from "@/data/milestones";
 
-export function MilestoneCard({ milestone, delay }: { milestone: Milestone; delay: number }) {
+export function MilestoneCard({
+  milestone,
+  delay,
+  last,
+}: {
+  milestone: Milestone;
+  delay: number;
+  last?: boolean;
+}) {
   return (
     <ScrollReveal delay={delay}>
-      <div className="relative pl-8 pb-2">
-        {/* Timeline dot */}
-        <div className="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-teal ring-4 ring-teal/15" />
-        <div className="font-serif text-2xl font-bold text-teal-dark leading-none mb-2">
-          {milestone.year}
-        </div>
-        <h4 className="text-[1.1rem] text-navy mb-2">{milestone.title}</h4>
-        <p className="text-text-muted text-[0.9rem] leading-[1.7]">{milestone.description}</p>
+      <div className={`group relative pl-10 ${last ? "" : "pb-12"}`}>
+        {/* spine */}
+        {!last && <div className="absolute left-[5px] top-3 bottom-0 w-px bg-ink-line" />}
+        {/* node */}
+        <div className="absolute left-0 top-1.5 w-[11px] h-[11px] rounded-full bg-ink border-2 border-accent transition-colors duration-300 group-hover:bg-accent" />
+        <div className="font-mono text-[0.78rem] tracking-[0.14em] text-accent">{milestone.year}</div>
+        <h4 className="mt-2 text-[1.25rem] text-paper tracking-[-0.01em]">{milestone.title}</h4>
+        <p className="mt-2 text-paper-muted text-[0.94rem] leading-[1.7] max-w-[46ch]">
+          {milestone.description}
+        </p>
       </div>
     </ScrollReveal>
   );

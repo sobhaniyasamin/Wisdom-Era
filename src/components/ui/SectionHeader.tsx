@@ -2,33 +2,29 @@ interface SectionHeaderProps {
   label: string;
   title: string;
   subtitle?: string;
-  dark?: boolean;
+  align?: "left" | "center";
+  className?: string;
 }
 
-export function SectionHeader({ label, title, subtitle, dark = false }: SectionHeaderProps) {
+export function SectionHeader({
+  label,
+  title,
+  subtitle,
+  align = "left",
+  className = "",
+}: SectionHeaderProps) {
+  const centered = align === "center";
   return (
-    <div className="text-align text-center mb-16 relative z-[1]">
-      <div
-        className={`inline-flex items-center gap-2.5 text-[0.78rem] font-semibold tracking-[3px] uppercase mb-5 before:content-[''] before:w-[30px] before:h-[2px] ${
-          dark
-            ? "text-teal before:bg-teal"
-            : "text-teal-dark before:bg-teal"
-        }`}
-      >
-        {label}
-      </div>
+    <div
+      className={`${centered ? "text-center mx-auto" : ""} max-w-[640px] mb-14 md:mb-20 ${className}`}
+    >
+      <div className={`eyebrow ${centered ? "justify-center" : ""}`}>{label}</div>
       <h2
-        className={`text-[clamp(2.2rem,3.5vw,3rem)] leading-[1.15] mb-4 ${
-          dark ? "text-white" : "text-navy"
-        }`}
+        className="mt-5 text-[clamp(2rem,4vw,3.25rem)] leading-[1.08] text-paper text-balance [&_em]:text-accent [&_em]:not-italic [&_em]:font-medium"
         dangerouslySetInnerHTML={{ __html: title }}
       />
       {subtitle && (
-        <p
-          className={`max-w-[550px] mx-auto leading-[1.7] ${
-            dark ? "text-white/55" : "text-text-muted"
-          }`}
-        >
+        <p className="mt-5 text-paper-muted text-[1.02rem] leading-[1.7] max-w-[52ch] text-pretty">
           {subtitle}
         </p>
       )}

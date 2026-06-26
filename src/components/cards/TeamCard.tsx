@@ -6,33 +6,33 @@ import type { TeamMember } from "@/data/team";
 export function TeamCard({ member, delay }: { member: TeamMember; delay: number }) {
   return (
     <ScrollReveal delay={delay}>
-      <div className="text-center p-8 bg-white rounded-2xl border border-navy/[0.05] transition-all duration-350 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(46,62,111,0.08)]">
+      <div className="group flex items-center gap-6 rounded-2xl border border-ink-line bg-ink-raised p-7 transition-colors duration-300 hover:border-accent/35">
         {member.photo ? (
           <img
             src={member.photo}
             alt={member.name}
-            className="w-24 h-24 rounded-full object-cover mx-auto mb-5"
+            className="w-20 h-20 rounded-full object-cover flex-shrink-0 ring-1 ring-ink-line"
           />
         ) : (
-          <div
-            className={`w-24 h-24 rounded-full bg-gradient-to-br ${member.gradient} flex items-center justify-center mx-auto mb-5`}
-          >
-            <span className="font-serif text-xl font-bold text-white">{member.initials}</span>
+          <div className="w-20 h-20 rounded-full bg-ink border border-ink-line flex items-center justify-center flex-shrink-0">
+            <span className="font-display text-lg font-bold text-accent">{member.initials}</span>
           </div>
         )}
-        <h4 className="text-lg text-navy mb-1">{member.name}</h4>
-        <p className="text-text-muted text-sm">{member.role}</p>
-        {member.linkedin && (
-          <a
-            href={member.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center mt-3 text-navy/30 hover:text-teal transition-colors"
-            aria-label={`${member.name} on LinkedIn`}
-          >
-            <Linkedin size={18} />
-          </a>
-        )}
+        <div className="min-w-0">
+          <h4 className="text-[1.2rem] text-paper tracking-[-0.01em]">{member.name}</h4>
+          <p className="text-accent text-[0.85rem] font-medium mt-0.5">{member.role}</p>
+          {member.linkedin && (
+            <a
+              href={member.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 mt-3 text-paper-faint hover:text-accent transition-colors text-[0.8rem]"
+              aria-label={`${member.name} on LinkedIn`}
+            >
+              <Linkedin size={15} /> Connect
+            </a>
+          )}
+        </div>
       </div>
     </ScrollReveal>
   );

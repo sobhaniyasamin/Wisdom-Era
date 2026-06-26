@@ -22,7 +22,7 @@ export const milestones: Milestone[] = [
     year: "2023",
     title: "Expanded into Agriculture AI",
     description:
-      "Extended our thesis into applied AI for agriculture — precision farming and crop intelligence.",
+      "Extended our thesis into applied AI for agriculture: precision farming and crop intelligence.",
   },
   {
     year: "2025",
