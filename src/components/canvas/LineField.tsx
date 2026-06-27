@@ -29,8 +29,6 @@ interface Edge {
   appear: number; // 0..1 reveal progress
 }
 
-const ACCENT = { r: 92, g: 200, b: 189 };
-
 export function LineField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -41,6 +39,22 @@ export function LineField() {
     if (!ctx) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Theme-aware stroke color + strength, read from CSS variables
+    const accent = { r: 92, g: 200, b: 189 };
+    let strength = 1;
+    function readTheme() {
+      const cs = getComputedStyle(document.documentElement);
+      const rgb = cs.getPropertyValue("--line-rgb").trim().split(/\s+/).map(Number);
+      if (rgb.length === 3 && rgb.every((n) => !Number.isNaN(n))) {
+        accent.r = rgb[0];
+        accent.g = rgb[1];
+        accent.b = rgb[2];
+      }
+      const s = parseFloat(cs.getPropertyValue("--line-strength"));
+      if (!Number.isNaN(s)) strength = s;
+    }
+    readTheme();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     let w = 0;
@@ -135,7 +149,7 @@ export function LineField() {
       ctx!.beginPath();
       ctx!.moveTo(x1, y1);
       ctx!.lineTo(x2, y2);
-      ctx!.strokeStyle = `rgba(${ACCENT.r},${ACCENT.g},${ACCENT.b},${alpha})`;
+      ctx!.strokeStyle = `rgba(${accent.r},${accent.g},${accent.b},${Math.min(0.7, alpha * strength)})`;
       ctx!.stroke();
     }
 
@@ -215,13 +229,13 @@ export function LineField() {
 
         ctx!.beginPath();
         ctx!.arc(sx, sy, n.r, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(${ACCENT.r},${ACCENT.g},${ACCENT.b},${Math.min(0.95, a)})`;
+        ctx!.fillStyle = `rgba(${accent.r},${accent.g},${accent.b},${Math.min(0.95, a * strength)})`;
         ctx!.fill();
 
         if (n.spine) {
           ctx!.beginPath();
           ctx!.arc(sx, sy, n.r + 4, 0, Math.PI * 2);
-          ctx!.strokeStyle = `rgba(${ACCENT.r},${ACCENT.g},${ACCENT.b},${0.12 + near * 0.3})`;
+          ctx!.strokeStyle = `rgba(${accent.r},${accent.g},${accent.b},${(0.12 + near * 0.3) * strength})`;
           ctx!.stroke();
         }
       }
@@ -263,10 +277,16 @@ export function LineField() {
     build();
     frame();
 
+    function onThemeChange() {
+      readTheme();
+      frame();
+    }
+
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mouseleave", onLeave);
     window.addEventListener("resize", onResize);
     window.addEventListener("scroll", onScrollStatic, { passive: true });
+    window.addEventListener("themechange", onThemeChange);
     document.addEventListener("visibilitychange", onVisibility);
 
     // Recompute geometry when the document height changes (images, fonts, reveals)
@@ -281,6 +301,7 @@ export function LineField() {
       window.removeEventListener("mouseleave", onLeave);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("scroll", onScrollStatic);
+      window.removeEventListener("themechange", onThemeChange);
       document.removeEventListener("visibilitychange", onVisibility);
       ro.disconnect();
     };

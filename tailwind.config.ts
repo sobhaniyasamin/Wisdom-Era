@@ -1,5 +1,9 @@
 import type { Config } from "tailwindcss";
 
+// Tokens reference CSS variables (RGB channels) so the whole palette can
+// swap between dark (default) and light (.light on <html>) themes.
+const v = (name: string) => `rgb(var(${name}) / <alpha-value>)`;
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,36 +13,35 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // New deep-ink system
         ink: {
-          DEFAULT: "#0b0f19", // canvas
-          deep: "#06080f", // deepest (footer, contrast)
-          raised: "#111726", // raised surfaces
-          line: "#1e2636", // hairline borders
+          DEFAULT: v("--ink"), // canvas
+          deep: v("--ink-deep"), // deepest band / footer
+          raised: v("--ink-raised"), // raised surfaces
+          line: v("--ink-line"), // hairline borders
         },
         paper: {
-          DEFAULT: "#eaedf4", // primary text
-          muted: "#99a3ba", // secondary text
-          faint: "#5b6480",
+          DEFAULT: v("--paper"), // primary text
+          muted: v("--paper-muted"), // secondary text
+          faint: v("--paper-faint"), // tertiary text
         },
         accent: {
-          DEFAULT: "#5cc8bd", // the one precise cool accent
-          bright: "#8ee6da", // line highlights
-          dim: "#2f7d74", // muted accent
+          DEFAULT: v("--accent"), // the one precise accent
+          bright: v("--accent-bright"), // hover / highlight
+          dim: v("--accent-dim"), // muted accent
+          ink: v("--accent-ink"), // readable text ON the accent
         },
-        // Legacy keys remapped to the dark system so nothing renders light by accident
-        navy: { DEFAULT: "#0b0f19", deep: "#06080f", light: "#1e2636" },
-        teal: { DEFAULT: "#5cc8bd", light: "#8ee6da", dark: "#2f7d74" },
-        cream: "#0b0f19",
+        // Legacy aliases mapped to the same variables so older classes adapt too
+        navy: { DEFAULT: v("--ink"), deep: v("--ink-deep"), light: v("--ink-line") },
+        teal: { DEFAULT: v("--accent"), light: v("--accent-bright"), dark: v("--accent-dim") },
+        cream: v("--ink"),
         coral: "#e8734a",
-        "text-dark": "#eaedf4",
-        "text-muted": "#99a3ba",
+        "text-dark": v("--paper"),
+        "text-muted": v("--paper-muted"),
       },
       fontFamily: {
         display: ["var(--font-display)", "Schibsted Grotesk", "system-ui", "sans-serif"],
         sans: ["var(--font-body)", "Hanken Grotesk", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
-        // legacy aliases
         serif: ["var(--font-display)", "Schibsted Grotesk", "sans-serif"],
       },
       transitionTimingFunction: {
@@ -53,10 +56,6 @@ const config: Config = {
         scrollPulse: {
           "0%, 100%": { opacity: "0.25", transform: "scaleY(0.55)" },
           "50%": { opacity: "1", transform: "scaleY(1)" },
-        },
-        shimmer: {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
         },
       },
       animation: {

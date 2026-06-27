@@ -81,7 +81,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               <Link
                 href="/contact"
                 onClick={onClose}
-                className="block w-full text-center bg-accent text-ink-deep py-3 rounded-full font-semibold transition-all duration-300 hover:bg-accent-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-raised"
+                className="block w-full text-center bg-accent text-accent-ink py-3 rounded-full font-semibold transition-all duration-300 hover:bg-accent-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-raised"
               >
                 Get in Touch
               </Link>

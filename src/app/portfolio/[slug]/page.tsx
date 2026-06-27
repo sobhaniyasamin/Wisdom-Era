@@ -58,7 +58,7 @@ export default function PortfolioDetailPage({ params }: Props) {
             href={company.website}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 bg-accent text-ink-deep px-5 py-2.5 rounded-full text-[0.85rem] font-semibold transition-all duration-300 hover:bg-accent-bright hover:shadow-[0_0_30px_-6px_rgba(92,200,189,0.5)] self-start sm:self-auto"
+            className="inline-flex items-center gap-1.5 bg-accent text-accent-ink px-5 py-2.5 rounded-full text-[0.85rem] font-semibold transition-all duration-300 hover:bg-accent-bright hover:shadow-[0_0_30px_-6px_rgba(92,200,189,0.5)] self-start sm:self-auto"
           >
             Visit website <ExternalLink size={14} />
           </a>

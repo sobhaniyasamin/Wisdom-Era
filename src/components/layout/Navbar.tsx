@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { MobileMenu } from "./MobileMenu";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { navLinks } from "@/data/navigation";
 
 export function Navbar() {
@@ -48,23 +49,29 @@ export function Navbar() {
             </li>
           ))}
           <li>
+            <ThemeToggle />
+          </li>
+          <li>
             <Link
               href="/contact"
-              className="inline-flex items-center rounded-full bg-accent text-ink-deep px-5 py-2 font-semibold text-[0.84rem] transition-all duration-300 hover:bg-accent-bright hover:shadow-[0_0_24px_-6px_rgba(92,200,189,0.5)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+              className="inline-flex items-center rounded-full bg-accent text-accent-ink px-5 py-2 font-semibold text-[0.84rem] transition-all duration-300 hover:bg-accent-bright hover:shadow-[0_0_24px_-6px_rgba(92,200,189,0.5)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
             >
               Get in Touch
             </Link>
           </li>
         </ul>
 
-        <button
-          className="md:hidden text-paper-muted hover:text-paper transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-md p-1"
-          onClick={() => setMenuOpen(true)}
-          aria-label="Open menu"
-          aria-expanded={menuOpen}
-        >
-          <Menu size={26} />
-        </button>
+        <div className="md:hidden flex items-center gap-1.5">
+          <ThemeToggle />
+          <button
+            className="text-paper-muted hover:text-paper transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-md p-1"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+          >
+            <Menu size={26} />
+          </button>
+        </div>
       </nav>
 
       <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
