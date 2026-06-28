@@ -54,10 +54,16 @@ export function Footer() {
                 Sectors
               </Link>
               <Link
-                href="/#approach"
+                href="/insights"
                 className="block text-white/50 no-underline text-[0.9rem] mb-3 transition-colors duration-300 hover:text-white"
               >
-                Approach
+                Insights
+              </Link>
+              <Link
+                href="/pitch"
+                className="block text-white/50 no-underline text-[0.9rem] mb-3 transition-colors duration-300 hover:text-white"
+              >
+                Pitch Us
               </Link>
               <Link
                 href="/contact"

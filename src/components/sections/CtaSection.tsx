@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -18,6 +19,13 @@ export function CtaSection() {
             Start a Conversation
             <ArrowRight size={18} />
           </Button>
+          <p className="mt-6 text-text-muted text-[0.95rem]">
+            Building a startup?{" "}
+            <Link href="/pitch" className="text-teal-dark font-semibold hover:underline">
+              Pitch us directly
+            </Link>
+            .
+          </p>
         </div>
       </ScrollReveal>
     </section>
