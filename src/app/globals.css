@@ -17,6 +17,55 @@
   h1, h2, h3, h4, h5 {
     @apply font-serif font-bold;
   }
+
+  /* ===== Dark mode =====
+     Light mode is untouched. The .dark class (set on <html>) overrides the
+     existing utility classes. Because bg-navy / text-navy / bg-white etc. are
+     separate classes, each role can be remapped independently. */
+  html.dark {
+    background-color: #0a0f1c;
+    color-scheme: dark;
+  }
+  .dark body {
+    background-color: #0d1322;
+    color: #e7eaf4;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  /* Surfaces */
+  .dark .bg-cream { background-color: #0d1322; }
+  .dark .bg-white { background-color: #18213b; }
+  .dark .bg-navy { background-color: #141d33; }
+  .dark .bg-navy\/95 { background-color: rgba(20, 29, 51, 0.95); }
+  .dark .bg-navy-deep { background-color: #0a0f1c; }
+  /* Replace cream gradients with a flat dark surface */
+  .dark .from-cream {
+    background-image: none !important;
+    background-color: #0d1322 !important;
+  }
+
+  /* Text */
+  .dark .text-navy { color: #e7eaf4; }
+  .dark .text-text-dark { color: #e7eaf4; }
+  .dark .text-text-muted { color: #99a4c1; }
+  .dark .text-teal-dark { color: #68c5b2; }
+
+  /* Borders */
+  .dark .border-navy\/\[0\.06\] { border-color: rgba(255, 255, 255, 0.08); }
+  .dark .border-navy\/\[0\.05\] { border-color: rgba(255, 255, 255, 0.08); }
+  .dark .border-navy\/10 { border-color: rgba(255, 255, 255, 0.1); }
+
+  /* Form controls */
+  .dark input,
+  .dark textarea {
+    background-color: #141d33;
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #e7eaf4;
+  }
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: rgba(231, 234, 244, 0.4);
+  }
 }
 
 @layer utilities {

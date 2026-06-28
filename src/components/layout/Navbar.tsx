@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { MobileMenu } from "./MobileMenu";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { navLinks } from "@/data/navigation";
 
 export function Navbar() {
@@ -49,6 +50,9 @@ export function Navbar() {
             </li>
           ))}
           <li>
+            <ThemeToggle />
+          </li>
+          <li>
             <Link
               href="/contact"
               className="bg-teal text-navy-deep px-6 py-2.5 rounded-md font-semibold text-[0.88rem] tracking-[0.5px] uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(104,197,178,0.4)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
@@ -58,15 +62,18 @@ export function Navbar() {
           </li>
         </ul>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden text-white/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal rounded-md p-1"
-          onClick={() => setMenuOpen(true)}
-          aria-label="Open menu"
-          aria-expanded={menuOpen}
-        >
-          <Menu size={28} />
-        </button>
+        {/* Mobile controls */}
+        <div className="md:hidden flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            className="text-white/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal rounded-md p-1"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+          >
+            <Menu size={28} />
+          </button>
+        </div>
       </nav>
 
       <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
