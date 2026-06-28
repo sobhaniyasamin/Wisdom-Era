@@ -14,69 +14,70 @@ export default function OgImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
-          padding: "72px",
-          backgroundColor: "#0b0f19",
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#1a2332",
+          background:
+            "linear-gradient(135deg, #1a2332 0%, #0f1720 50%, #1a2332 100%)",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+            marginBottom: "32px",
+          }}
+        >
           <div
             style={{
-              width: "44px",
-              height: "44px",
-              borderRadius: "12px",
-              border: "1px solid #1e2636",
-              backgroundColor: "#111726",
+              width: "72px",
+              height: "72px",
+              borderRadius: "16px",
+              backgroundColor: "#68c5b2",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: "20px",
+              fontSize: "36px",
               fontWeight: 700,
-              color: "#5cc8bd",
+              color: "#1a2332",
             }}
           >
             WE
           </div>
           <div
             style={{
-              fontSize: "24px",
+              fontSize: "48px",
               fontWeight: 700,
-              color: "#eaedf4",
-              letterSpacing: "4px",
+              color: "#ffffff",
+              letterSpacing: "2px",
             }}
           >
             WISDOM ERA
           </div>
         </div>
-
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
-              fontSize: "84px",
-              fontWeight: 800,
-              color: "#eaedf4",
-              letterSpacing: "-3px",
-              lineHeight: 1.0,
-            }}
-          >
-            Keep up with{" "}
-            <span style={{ color: "#5cc8bd" }}>the future.</span>
-          </div>
-          <div
-            style={{
-              fontSize: "22px",
-              color: "rgba(234,237,244,0.6)",
-              maxWidth: "760px",
-              lineHeight: 1.55,
-              marginTop: "28px",
-            }}
-          >
-            AI-focused tech holding company investing in and co-building the future
-            of e-commerce and agriculture across emerging markets.
-          </div>
+        <div
+          style={{
+            fontSize: "24px",
+            color: "#68c5b2",
+            letterSpacing: "4px",
+            textTransform: "uppercase",
+            marginBottom: "24px",
+          }}
+        >
+          Keep Up with the Future
+        </div>
+        <div
+          style={{
+            fontSize: "18px",
+            color: "rgba(255,255,255,0.6)",
+            maxWidth: "700px",
+            textAlign: "center",
+            lineHeight: 1.6,
+          }}
+        >
+          AI-focused tech holding company investing in and co-building the future
+          of e-commerce and agriculture across emerging markets.
         </div>
       </div>
     ),

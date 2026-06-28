@@ -2,27 +2,21 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function CeoQuoteSection() {
   return (
-    <section data-section="ceo-quote" className="py-24 md:py-36 px-[5%] md:px-[8%]">
+    <section data-section="ceo-quote" className="bg-navy py-20 md:py-24 px-[5%] md:px-[8%] relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_50%,rgba(104,197,178,0.08)_0%,transparent_50%),radial-gradient(circle_at_90%_50%,rgba(104,197,178,0.05)_0%,transparent_50%)]" />
       <ScrollReveal>
-        <figure className="max-w-[920px] mx-auto">
-          <div className="font-mono text-[0.72rem] tracking-[0.18em] uppercase text-accent mb-8">
-            From the CEO
+        <div className="max-w-[900px] mx-auto text-center relative z-[1]">
+          <div className="font-serif text-[6rem] text-teal opacity-30 leading-[0.5] mb-4">
+            &ldquo;
           </div>
-          <blockquote className="font-display text-[clamp(1.6rem,3.4vw,2.6rem)] leading-[1.25] text-paper tracking-[-0.02em] text-balance">
-            You don&rsquo;t win by waiting for perfect conditions. You win by learning fast, acting
-            decisively, and letting insight <em className="not-italic text-accent">compound</em> over
-            time. Wisdom Era is designed around that compounding effect.
-          </blockquote>
-          <figcaption className="mt-10 flex items-center gap-4">
-            <div className="h-px w-10 bg-accent" />
-            <div>
-              <div className="text-paper font-semibold">Vahid Shirazi</div>
-              <div className="text-paper-faint text-[0.85rem] font-mono tracking-tight mt-0.5">
-                Co-founder &amp; CEO, Wisdom Era
-              </div>
-            </div>
-          </figcaption>
-        </figure>
+          <p className="font-serif text-[clamp(1.3rem,2.5vw,1.8rem)] text-white/90 leading-relaxed italic mb-8">
+            You don&apos;t win by waiting for perfect conditions; you win by learning fast, acting
+            decisively, and letting insight compound over time. Wisdom Era is designed around that
+            compounding effect.
+          </p>
+          <div className="text-teal font-semibold text-base tracking-wide">Vahid Shirazi</div>
+          <div className="text-white/45 text-[0.85rem] mt-1">Co-founder &amp; CEO, Wisdom Era</div>
+        </div>
       </ScrollReveal>
     </section>
   );

@@ -1,28 +1,30 @@
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { StatCard } from "@/components/cards/StatCard";
 import { stats } from "@/data/stats";
 
 export function StatsSection() {
   return (
-    <section id="stats" className="px-[5%] md:px-[8%] pb-4">
-      <ScrollReveal>
-        <div className="max-w-[1200px] mx-auto grid grid-cols-2 lg:grid-cols-4 border-y border-ink-line">
+    <section
+      id="stats"
+      className="bg-navy py-20 md:py-28 px-[5%] md:px-[8%] relative overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(104,197,178,0.06)_0%,transparent_55%)]" />
+      <div className="max-w-[1200px] mx-auto relative z-[1]">
+        <ScrollReveal>
+          <SectionHeader
+            label="By the Numbers"
+            title="Building With Conviction"
+            subtitle="A snapshot of where Wisdom Era invests its focus and capital."
+            dark
+          />
+        </ScrollReveal>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, i) => (
-            <div
-              key={stat.label}
-              className={`px-6 py-9 md:py-11 ${
-                i !== 0 ? "border-l border-ink-line" : ""
-              } ${i === 2 ? "border-l lg:border-l border-ink-line" : ""}`}
-            >
-              <div className="font-display text-[clamp(2.2rem,4vw,3.4rem)] font-bold leading-none text-paper tracking-[-0.03em]">
-                {stat.value}
-              </div>
-              <div className="mt-3 font-mono text-[0.7rem] tracking-[0.14em] uppercase text-paper-faint">
-                {stat.label}
-              </div>
-            </div>
+            <StatCard key={stat.label} stat={stat} delay={i * 0.1} />
           ))}
         </div>
-      </ScrollReveal>
+      </div>
     </section>
   );
 }

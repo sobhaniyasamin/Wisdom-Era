@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { ArrowLeft, ArrowRight, CheckCircle2, ExternalLink } from "lucide-react";
 import { portfolioCompanies } from "@/data/portfolio";
 import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 interface Props {
@@ -19,7 +20,7 @@ export function generateMetadata({ params }: Props): Metadata {
   const company = portfolioCompanies.find((c) => c.slug === params.slug);
   if (!company) return {};
   return {
-    title: `${company.name} · ${company.tagline}`,
+    title: `${company.name} — ${company.tagline}`,
     description: company.description,
     alternates: { canonical: `/portfolio/${company.slug}` },
   };
@@ -32,130 +33,140 @@ export default function PortfolioDetailPage({ params }: Props) {
   const others = portfolioCompanies.filter((c) => c.slug !== company.slug);
 
   return (
-    <section className="pt-36 pb-28 px-[5%] md:px-[8%]">
-      <div className="max-w-[1000px] mx-auto">
-        {/* Header */}
-        <Link
-          href="/#portfolio"
-          className="inline-flex items-center gap-2 font-mono text-[0.78rem] tracking-tight text-paper-muted mb-10 hover:text-accent transition-colors"
-        >
-          <ArrowLeft size={15} /> Back to portfolio
-        </Link>
-
-        <div className="flex flex-col sm:flex-row sm:items-center gap-6 pb-10 border-b border-ink-line">
-          <img
-            src={company.logoSrc}
-            alt={`${company.name} logo`}
-            className="w-16 h-16 rounded-2xl flex-shrink-0 object-contain bg-ink-raised border border-ink-line p-2"
-          />
-          <div className="flex-1">
-            <h1 className="text-[clamp(2.2rem,4vw,3.2rem)] text-paper leading-[1.05] tracking-[-0.02em]">
-              {company.name}
-            </h1>
-            <p className="text-accent text-[1.05rem] font-medium mt-1">{company.tagline}</p>
-          </div>
-          <a
-            href={company.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 bg-accent text-accent-ink px-5 py-2.5 rounded-full text-[0.85rem] font-semibold transition-all duration-300 hover:bg-accent-bright hover:shadow-[0_0_30px_-6px_rgba(92,200,189,0.5)] self-start sm:self-auto"
+    <>
+      {/* Hero Banner */}
+      <section className="bg-navy pt-32 pb-20 px-[5%] md:px-[8%] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(104,197,178,0.08)_0%,transparent_50%)]" />
+        <div className="max-w-[1100px] mx-auto relative z-[1]">
+          <Link
+            href="/#portfolio"
+            className="inline-flex items-center gap-2 text-teal text-sm font-medium mb-8 hover:underline"
           >
-            Visit website <ExternalLink size={14} />
-          </a>
-        </div>
-
-        {/* Highlights */}
-        <ScrollReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink-line border border-ink-line rounded-xl overflow-hidden mt-12">
-            {company.highlights.map((h) => (
-              <div key={h.label} className="bg-ink px-5 py-7">
-                <div className="font-display text-[1.4rem] font-bold text-paper leading-tight tracking-[-0.01em]">
-                  {h.value}
-                </div>
-                <div className="mt-2 font-mono text-[0.66rem] tracking-[0.12em] uppercase text-paper-faint">
-                  {h.label}
-                </div>
-              </div>
-            ))}
+            <ArrowLeft size={16} /> Back to Portfolio
+          </Link>
+          <div className="flex items-start gap-6 mb-8">
+            <img
+              src={company.logoSrc}
+              alt={`${company.name} logo`}
+              className="w-20 h-20 rounded-2xl flex-shrink-0 object-contain"
+            />
+            <div>
+              <h1 className="text-[clamp(2.5rem,4vw,3.5rem)] text-white leading-tight mb-2">
+                {company.name}
+              </h1>
+              <p className="text-teal text-lg font-medium">{company.tagline}</p>
+            </div>
           </div>
-        </ScrollReveal>
+          <div className="flex flex-wrap items-center gap-2">
+            {company.tags.map((tag) => (
+              <Badge key={tag} variant="dark">
+                {tag}
+              </Badge>
+            ))}
+            <a
+              href={company.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 bg-teal text-navy-deep px-4 py-1.5 rounded-md text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(104,197,178,0.4)] ml-2"
+            >
+              Visit Website <ExternalLink size={14} />
+            </a>
+          </div>
+        </div>
+      </section>
 
-        {/* About */}
-        <ScrollReveal>
-          <div className="max-w-[760px] mt-20">
-            <div className="eyebrow">Overview</div>
-            <h2 className="mt-5 text-[1.8rem] text-paper tracking-[-0.01em] mb-6">
-              About {company.name}
-            </h2>
-            <div className="space-y-5">
+      {/* Highlights Grid */}
+      <section className="py-16 px-[5%] md:px-[8%]">
+        <div className="max-w-[1100px] mx-auto">
+          <ScrollReveal>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+              {company.highlights.map((h) => (
+                <div
+                  key={h.label}
+                  className="bg-white rounded-2xl p-6 border border-navy/[0.06] text-center"
+                >
+                  <div className="font-serif text-2xl font-bold text-navy mb-1">{h.value}</div>
+                  <div className="text-text-muted text-sm">{h.label}</div>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+
+          {/* Full Description */}
+          <ScrollReveal>
+            <div className="max-w-[800px] mx-auto mb-16">
+              <h2 className="text-2xl text-navy mb-6">About {company.name}</h2>
               {company.fullDescription.split("\n\n").map((para, i) => (
-                <p key={i} className="text-paper-muted leading-[1.85]">
+                <p key={i} className="text-text-muted leading-[1.8] mb-5">
                   {para}
                 </p>
               ))}
             </div>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
 
-        {/* Features */}
-        <ScrollReveal>
-          <div className="max-w-[820px] mt-20">
-            <div className="eyebrow">Capabilities</div>
-            <h2 className="mt-5 text-[1.8rem] text-paper tracking-[-0.01em] mb-8">Key features</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
-              {company.features.map((feature) => (
-                <div key={feature} className="flex items-start gap-3 py-3 border-b border-ink-line">
-                  <CheckCircle2 className="w-4.5 h-4.5 text-accent flex-shrink-0 mt-0.5" strokeWidth={1.8} />
-                  <span className="text-paper-muted text-[0.94rem] leading-relaxed">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* CTA */}
-        <ScrollReveal>
-          <div className="mt-20 rounded-2xl border border-ink-line bg-ink-raised bg-grid p-10 md:p-14 text-center">
-            <h3 className="text-[1.6rem] text-paper tracking-[-0.01em] mb-3">
-              Interested in {company.name}?
-            </h3>
-            <p className="text-paper-muted mb-7 max-w-[480px] mx-auto leading-relaxed">
-              Get in touch to learn more about this company and explore partnership opportunities.
-            </p>
-            <div className="flex justify-center">
-              <Button href="/contact" variant="primary">
-                Contact us <ArrowRight size={17} />
-              </Button>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Other companies */}
-        <ScrollReveal>
-          <div className="mt-24">
-            <div className="eyebrow mb-8">More from the portfolio</div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-              {others.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/portfolio/${c.slug}`}
-                  className="group block rounded-2xl p-6 border border-ink-line bg-ink-raised no-underline transition-colors duration-300 hover:border-accent/35"
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    <img
-                      src={c.logoSrc}
-                      alt={`${c.name} logo`}
-                      className="w-9 h-9 rounded-lg object-contain bg-ink border border-ink-line p-1"
-                    />
-                    <h4 className="text-paper font-semibold">{c.name}</h4>
+          {/* Features */}
+          <ScrollReveal>
+            <div className="max-w-[800px] mx-auto mb-16">
+              <h2 className="text-2xl text-navy mb-6">Key Features</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {company.features.map((feature) => (
+                  <div key={feature} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-teal flex-shrink-0 mt-0.5" />
+                    <span className="text-text-muted text-[0.95rem] leading-relaxed">
+                      {feature}
+                    </span>
                   </div>
-                  <p className="text-paper-muted text-[0.88rem] leading-relaxed">{c.tagline}</p>
-                </Link>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </ScrollReveal>
-      </div>
-    </section>
+          </ScrollReveal>
+
+          {/* CTA */}
+          <ScrollReveal>
+            <div className="bg-navy rounded-2xl p-12 text-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(104,197,178,0.08)_0%,transparent_50%)]" />
+              <div className="relative z-[1]">
+                <h3 className="text-2xl text-white mb-3">
+                  Interested in {company.name}?
+                </h3>
+                <p className="text-white/60 mb-6 max-w-[500px] mx-auto">
+                  Get in touch to learn more about this company and explore partnership
+                  opportunities.
+                </p>
+                <Button href="/contact" variant="primary">
+                  Contact Us <ArrowRight size={18} />
+                </Button>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Other Companies */}
+          <ScrollReveal>
+            <div className="mt-20">
+              <h3 className="text-xl text-navy mb-8 text-center">Explore More Companies</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                {others.map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/portfolio/${c.slug}`}
+                    className="group block bg-white rounded-2xl p-6 border border-navy/[0.06] no-underline transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(46,62,111,0.08)]"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <img
+                        src={c.logoSrc}
+                        alt={`${c.name} logo`}
+                        className="w-10 h-10 rounded-xl object-contain"
+                      />
+                      <h4 className="text-navy font-bold">{c.name}</h4>
+                    </div>
+                    <p className="text-text-muted text-sm leading-relaxed">{c.tagline}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+    </>
   );
 }

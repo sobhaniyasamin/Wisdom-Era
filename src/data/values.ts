@@ -24,7 +24,7 @@ export const values: Value[] = [
     icon: "trending-up",
     title: "Long-Term Thinking",
     description:
-      "We invest where value compounds over years, not quarters. Patience is part of the strategy.",
+      "We invest where value compounds over years, not quarters — patience is part of the strategy.",
   },
   {
     icon: "cpu",
@@ -36,7 +36,7 @@ export const values: Value[] = [
     icon: "wrench",
     title: "Hands-On",
     description:
-      "We co-build, deeply involved across product, technology, talent, and strategy from day one.",
+      "We co-build — deeply involved across product, technology, talent, and strategy from day one.",
   },
   {
     icon: "compass",
@@ -48,6 +48,6 @@ export const values: Value[] = [
     icon: "eye",
     title: "Transparency",
     description:
-      "Honest, direct partnership with our founders: clear expectations and shared accountability.",
+      "Honest, direct partnership with our founders — clear expectations and shared accountability.",
   },
 ];

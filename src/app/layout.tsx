@@ -1,29 +1,20 @@
 import type { Metadata } from "next";
-import { Schibsted_Grotesk, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Playfair_Display, DM_Sans } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { LineField } from "@/components/canvas/LineField";
+import { ConstellationBackground } from "@/components/canvas/ConstellationBackground";
 import { JsonLd } from "@/components/JsonLd";
 import "./globals.css";
 
-const display = Schibsted_Grotesk({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-playfair",
   display: "swap",
 });
 
-const body = Hanken_Grotesk({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500"],
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
@@ -68,22 +59,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable}`}
-      suppressHydrationWarning
-    >
-      <head>
-        {/* Set theme before first paint to avoid a flash of the wrong theme */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}if(t==='light'){document.documentElement.classList.add('light');}}catch(e){}})();`,
-          }}
-        />
-      </head>
+    <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
       <body className="antialiased">
         <JsonLd />
-        <LineField />
+        <ConstellationBackground />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:bg-teal focus:text-navy-deep focus:px-4 focus:py-2 focus:rounded-md focus:font-semibold"

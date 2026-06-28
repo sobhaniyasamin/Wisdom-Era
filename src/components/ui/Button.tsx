@@ -1,18 +1,14 @@
 import Link from "next/link";
 import { type ReactNode } from "react";
 
-type Variant = "primary" | "outline" | "ghost";
-
-const base =
-  "group inline-flex items-center gap-2 rounded-full font-medium text-[0.92rem] tracking-[-0.01em] transition-all duration-300 ease-out-quint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink";
+type Variant = "primary" | "outline" | "cta";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-accent text-accent-ink px-7 py-3 font-semibold hover:bg-accent-bright hover:shadow-[0_0_30px_-6px_rgba(92,200,189,0.5)]",
+    "inline-flex items-center gap-2 bg-teal text-navy-deep px-8 py-3.5 rounded-lg font-semibold text-[0.95rem] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(104,197,178,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2",
   outline:
-    "px-7 py-3 text-paper border border-ink-line hover:border-accent/60 hover:text-accent bg-ink-raised/40",
-  ghost:
-    "px-2 py-1 text-paper-muted hover:text-accent",
+    "inline-flex items-center gap-2 bg-transparent text-white px-8 py-3.5 rounded-lg font-medium text-[0.95rem] border-[1.5px] border-white/25 transition-all duration-300 hover:border-teal hover:text-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2",
+  cta: "inline-flex items-center gap-2.5 bg-navy text-white px-9 py-4 rounded-lg font-semibold text-base transition-all duration-300 hover:bg-navy-deep hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(46,62,111,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2",
 };
 
 interface ButtonProps {
@@ -30,7 +26,7 @@ export function Button({
   className = "",
   external = false,
 }: ButtonProps) {
-  const classes = `${base} ${variants[variant]} ${className}`;
+  const classes = `${variants[variant]} ${className}`;
 
   if (external) {
     return (

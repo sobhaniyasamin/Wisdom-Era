@@ -5,25 +5,26 @@ import { milestones } from "@/data/milestones";
 
 export function MilestonesSection() {
   return (
-    <section id="milestones" className="py-24 md:py-36 px-[5%] md:px-[8%] bg-ink-deep border-y border-ink-line">
-      <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20">
+    <section
+      id="milestones"
+      className="bg-gradient-to-br from-cream to-[#eef6f3] py-20 md:py-28 px-[5%] md:px-[8%]"
+    >
+      <div className="max-w-[1100px] mx-auto">
         <ScrollReveal>
           <SectionHeader
             label="Our Journey"
             title="Milestones"
             subtitle="Key moments on the path from a thesis to a group of operating companies."
-            className="mb-0 lg:sticky lg:top-28"
           />
         </ScrollReveal>
-        <div>
-          {milestones.map((milestone, i) => (
-            <MilestoneCard
-              key={milestone.year}
-              milestone={milestone}
-              delay={i * 0.06}
-              last={i === milestones.length - 1}
-            />
-          ))}
+        {/* Continuous timeline line behind the dotted milestones */}
+        <div className="relative">
+          <div className="absolute left-[5px] top-2 bottom-2 w-px bg-teal/20 hidden md:block" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 relative">
+            {milestones.map((milestone, i) => (
+              <MilestoneCard key={milestone.year} milestone={milestone} delay={i * 0.08} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

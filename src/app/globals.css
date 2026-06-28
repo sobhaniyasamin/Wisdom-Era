@@ -3,146 +3,36 @@
 @tailwind utilities;
 
 @layer base {
-  /* Dark theme (default) */
-  :root {
-    --ink: 11 15 25;
-    --ink-deep: 6 8 15;
-    --ink-raised: 17 23 38;
-    --ink-line: 30 38 54;
-
-    --paper: 234 237 244;
-    --paper-muted: 153 163 186;
-    --paper-faint: 91 100 128;
-
-    --accent: 92 200 189;
-    --accent-bright: 142 230 218;
-    --accent-dim: 47 125 116;
-    --accent-ink: 6 8 15; /* dark text on the bright accent */
-
-    --grid-line: 255 255 255;
-    --grid-alpha: 0.025;
-
-    --line-rgb: 92 200 189; /* LineField stroke color */
-    --line-strength: 1; /* LineField alpha multiplier */
-  }
-
-  /* Light theme */
-  .light {
-    --ink: 247 249 252;
-    --ink-deep: 237 241 247;
-    --ink-raised: 255 255 255;
-    --ink-line: 223 229 238;
-
-    --paper: 16 23 38;
-    --paper-muted: 84 95 116;
-    --paper-faint: 138 149 168;
-
-    --accent: 25 145 132; /* darker teal for contrast on light */
-    --accent-bright: 17 117 106;
-    --accent-dim: 130 205 196;
-    --accent-ink: 255 255 255; /* light text on the darker accent */
-
-    --grid-line: 18 28 48;
-    --grid-alpha: 0.05;
-
-    --line-rgb: 25 145 132;
-    --line-strength: 1.7;
-  }
-
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    background-color: rgb(var(--ink));
-    color-scheme: dark;
-  }
-  html.light {
-    color-scheme: light;
+    @apply bg-navy;
   }
 
   body {
-    @apply bg-transparent text-paper font-sans overflow-x-hidden;
-    font-weight: 400;
-    letter-spacing: -0.005em;
-  }
-
-  /* Smooth cross-fade when toggling themes */
-  body,
-  .theme-tween {
-    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    @apply bg-cream text-text-dark font-sans overflow-x-hidden;
   }
 
   h1, h2, h3, h4, h5 {
-    @apply font-display;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  ::selection {
-    background-color: rgb(var(--accent) / 0.22);
-    color: rgb(var(--paper));
-  }
-
-  :focus-visible {
-    outline: 2px solid rgb(var(--accent));
-    outline-offset: 2px;
-    border-radius: 3px;
-  }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: rgb(var(--ink-deep));
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgb(var(--ink-line));
-    border-radius: 6px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgb(var(--paper-faint) / 0.6);
-  }
-}
-
-@layer components {
-  .eyebrow {
-    @apply inline-flex items-center gap-2.5 font-mono text-[0.72rem] font-medium tracking-[0.18em] uppercase text-accent;
-  }
-  .eyebrow::before {
-    content: "";
-    @apply w-6 h-px bg-accent/60;
-  }
-
-  .hairline {
-    @apply border-ink-line;
+    @apply font-serif font-bold;
   }
 }
 
 @layer utilities {
-  .animation-delay-200 { animation-delay: 0.2s; }
-  .animation-delay-500 { animation-delay: 0.5s; }
-  .animation-delay-700 { animation-delay: 0.7s; }
-  .animation-delay-900 { animation-delay: 0.9s; }
-  .animation-delay-1200 { animation-delay: 1.2s; }
-
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, rgb(var(--grid-line) / var(--grid-alpha)) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(var(--grid-line) / var(--grid-alpha)) 1px, transparent 1px);
-    background-size: 64px 64px;
+  .animation-delay-200 {
+    animation-delay: 0.2s;
   }
-
-  .text-balance { text-wrap: balance; }
-  .text-pretty { text-wrap: pretty; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+  .animation-delay-500 {
+    animation-delay: 0.5s;
+  }
+  .animation-delay-700 {
+    animation-delay: 0.7s;
+  }
+  .animation-delay-900 {
+    animation-delay: 0.9s;
+  }
+  .animation-delay-1200 {
+    animation-delay: 1.2s;
   }
 }

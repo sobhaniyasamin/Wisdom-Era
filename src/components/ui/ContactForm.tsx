@@ -20,8 +20,7 @@ const initialData: FormData = {
 };
 
 const inputClasses =
-  "w-full px-4 py-3 rounded-lg border border-ink-line bg-ink-raised text-paper placeholder:text-paper-faint focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 font-sans text-[0.95rem]";
-const labelClasses = "block text-sm font-medium text-paper-muted mb-1.5";
+  "w-full px-4 py-3 rounded-lg border border-navy/10 bg-white text-text-dark placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition-all duration-200 font-sans text-[0.95rem]";
 
 export function ContactForm() {
   const [form, setForm] = useState<FormData>(initialData);
@@ -68,10 +67,10 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="text-center py-12 rounded-2xl border border-ink-line bg-ink-raised">
-        <CheckCircle className="w-14 h-14 text-accent mx-auto mb-4" />
-        <h3 className="text-2xl text-paper mb-2">Message sent</h3>
-        <p className="text-paper-muted">
+      <div className="text-center py-12">
+        <CheckCircle className="w-16 h-16 text-teal mx-auto mb-4" />
+        <h3 className="text-2xl text-navy mb-2">Message Sent!</h3>
+        <p className="text-text-muted">
           Thank you for reaching out. We&apos;ll get back to you shortly.
         </p>
       </div>
@@ -82,7 +81,7 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
-          <label htmlFor="name" className={labelClasses}>
+          <label htmlFor="name" className="block text-sm font-medium text-navy mb-1.5">
             Name *
           </label>
           <input
@@ -96,7 +95,7 @@ export function ContactForm() {
           {errors.name && <p className="text-coral text-sm mt-1">{errors.name}</p>}
         </div>
         <div>
-          <label htmlFor="email" className={labelClasses}>
+          <label htmlFor="email" className="block text-sm font-medium text-navy mb-1.5">
             Email *
           </label>
           <input
@@ -112,7 +111,7 @@ export function ContactForm() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
-          <label htmlFor="company" className={labelClasses}>
+          <label htmlFor="company" className="block text-sm font-medium text-navy mb-1.5">
             Company
           </label>
           <input
@@ -125,7 +124,7 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="subject" className={labelClasses}>
+          <label htmlFor="subject" className="block text-sm font-medium text-navy mb-1.5">
             Subject
           </label>
           <input
@@ -139,7 +138,7 @@ export function ContactForm() {
         </div>
       </div>
       <div>
-        <label htmlFor="message" className={labelClasses}>
+        <label htmlFor="message" className="block text-sm font-medium text-navy mb-1.5">
           Message *
         </label>
         <textarea
@@ -158,10 +157,10 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="inline-flex items-center gap-2 bg-accent text-accent-ink px-8 py-3.5 rounded-full font-semibold transition-all duration-300 hover:bg-accent-bright hover:shadow-[0_0_30px_-6px_rgba(92,200,189,0.5)] disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+        className="inline-flex items-center gap-2 bg-navy text-white px-8 py-3.5 rounded-lg font-semibold transition-all duration-300 hover:bg-navy-deep hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(46,62,111,0.25)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
       >
         <Send className="w-4 h-4" />
-        {status === "submitting" ? "Sending..." : "Send message"}
+        {status === "submitting" ? "Sending..." : "Send Message"}
       </button>
     </form>
   );
